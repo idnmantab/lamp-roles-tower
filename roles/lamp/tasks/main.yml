@@ -26,7 +26,7 @@
 
 - name: Setup VirtualHost
   template:
-    src: /etc/ansible/roles/lamp/templates/vhost.j2
+    src: roles/lamp/templates/vhost.j2
     dest: "{{ vhost_dir }}/000-default.conf"
   notify:
     - restart_apache
