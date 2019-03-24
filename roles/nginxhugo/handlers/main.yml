@@ -1,0 +1,7 @@
+---
+# handlers file for nginxhugo
+
+- name: start_nginx
+  service:
+     name: nginx
+     state: started

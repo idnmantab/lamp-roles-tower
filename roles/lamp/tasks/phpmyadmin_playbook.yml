@@ -1,0 +1,52 @@
+- name: debconf for pma
+  debconf: 
+    name: phpmyadmin 
+    question: 'phpmyadmin/dbconfig-install' 
+    value: 'true' 
+    vtype: 'boolean'
+
+- name: debconf for pma
+  debconf: 
+    name: phpmyadmin 
+    question: 'phpmyadmin/app-password-confirm' 
+    value: '{{ root_db_password }}' 
+    vtype: 'password'
+
+- name: debconf for pma
+  debconf: 
+    name: phpmyadmin 
+    question: 'phpmyadmin/mysql/admin-pass' 
+    value: "{{ root_db_password }}" 
+    vtype: 'password'
+
+- name: debconf for pma
+  debconf: 
+    name: phpmyadmin 
+    question: 'phpmyadmin/mysql/app-pass' 
+    value: '{{ root_db_password }}' 
+    vtype: 'password'
+
+- name: debconf for pma
+  debconf: 
+    name: phpmyadmin 
+    question: 'phpmyadmin/reconfigure-webserver' 
+    value: 'apache2' 
+    vtype: 'multiselect'
+- name: Install php dan phpmyadmin
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - libapache2-mod-php
+    - php
+    - phpmyadmin
+    - php-mbstring
+    - php-gettext
+    - php-mysql
+    - php-pear
+    - php-mcrypt
+    - php-cgi
+    - php-gd
+    - php-curl
+  notify:
+    - restart_apache

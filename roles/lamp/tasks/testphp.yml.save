@@ -1,0 +1,26 @@
+- hosts: ubuntu
+  tasks:
+    - name: Install php dan phpmyadmin
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+           - libapache2-mod-php
+           - php
+           - phpmyadmin
+           - php-mbstring
+           - php-gettext
+           - php-mysql
+           - php-pear
+           - php-mcrypt
+           - php-cgi
+           - php-gd
+           - php-curl
+    - name: setup apache2 for phpmyadmin
+      template:
+        src: /etc/ansible/roles/lamp/templates/phpMyAdmin.conf.j2
+        dest: /etc/apache2/conf-enabled/phpMyAdmin.conf    
+    - name: restart apache2
+      service:
+        name: apache2
+        state: restarted

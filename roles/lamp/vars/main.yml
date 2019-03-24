@@ -1,0 +1,7 @@
+---
+# vars file for lamp
+
+doc_root: /var/www/html/{{ ansible_hostname }}_web
+vhost_dir: /etc/apache2/sites-enabled/
+root_db_password: idn123$%
+

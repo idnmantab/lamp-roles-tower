@@ -1,0 +1,36 @@
+---
+# tasks file for lamp
+
+- name: Install apache2
+  apt: 
+    name: apache2
+    update_cache: true
+    state: present
+  notify:
+    - start_apache
+
+- name: Create custom root document
+  file:
+    path: "{{ doc_root }}"
+    state: directory
+    owner: www-data
+    group: www-data
+
+- name: Copy file index.html
+  copy:
+    src: /etc/ansible/roles/lamp/files/index.html
+    dest: "{{ doc_root }}/index.html"
+    owner: www-data
+    group: www-data
+    mode: 0644
+
+- name: Setup VirtualHost
+  template:
+    src: /etc/ansible/roles/lamp/templates/vhost.j2
+    dest: "{{ vhost_dir }}/000-default.conf"
+  notify:
+    - restart_apache
+
+- import_tasks: mysql_playbook.yml
+- import_tasks: phpmyadmin_playbook.yml
+
