@@ -18,7 +18,7 @@
 
 - name: Copy file index.html
   copy:
-    src: /etc/ansible/roles/lamp/files/index.html
+    src: roles/lamp/files/index.html
     dest: "{{ doc_root }}/index.html"
     owner: www-data
     group: www-data
